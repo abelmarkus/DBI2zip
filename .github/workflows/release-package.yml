@@ -24,8 +24,9 @@ jobs:
       - name: Archive files
         run: |
           mkdir -p switch/DBI
-          cd switch/DBI
-          zip ../../DBI.zip ../../DBI.nro ../../dbi.config
+          mv DBI.nro switch/DBI/
+          mv dbi.config switch/DBI/
+          zip -r DBI.zip switch/
 
       # - name: Bump Release version
       #   run: |
