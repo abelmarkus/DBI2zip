@@ -23,7 +23,9 @@ jobs:
           curl -LJO https://github.com/rashevskyv/dbi/releases/latest/download/dbi.config
       - name: Archive files
         run: |
-          zip DBI.zip DBI.nro dbi.config
+          mkdir -p switch/DBI
+          cd switch/DBI
+          zip ../DBI.zip ../DBI.nro ../dbi.config
 
       # - name: Bump Release version
       #   run: |
