@@ -33,6 +33,10 @@ jobs:
       #     VERSION_NEXT=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
       #     echo $VERSION_NEXT > release
       #     echo $VERSION_NEXT
+
+      - name: Create Release Tag
+        id: create-release-tag
+        run: echo "tag_name=$GITHUB_RUN_NUMBER" >> $GITHUB_OUTPUT
           
       - name: Create release
         id: create_release
@@ -40,10 +44,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.create-release-tag.outputs.tag_name }}
+          release_name: Release ${{ steps.create-release-tag.outputs.tag_name }}
           body: |
-            This is the first release of DBI.
+            New release of DBI zip.
           draft: false
           prerelease: false
       - name: Upload release asset
