@@ -28,13 +28,6 @@ jobs:
           mv dbi.config switch/DBI/
           zip -r DBI.zip switch/
 
-      # - name: Bump Release version
-      #   run: |
-      #     VERSION=$(cat release)
-      #     VERSION_NEXT=$(echo $VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-      #     echo $VERSION_NEXT > release
-      #     echo $VERSION_NEXT
-
       - name: Create Release Tag
         id: create-release-tag
         run: echo "tag_name=$GITHUB_RUN_NUMBER" >> $GITHUB_OUTPUT
