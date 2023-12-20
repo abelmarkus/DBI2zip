@@ -27,4 +27,4 @@ jobs:
     if: github.env.update == 'true'
     uses: ./.github/workflows/release-package.yml
     with:
-      version: ${{ env.dbi_release }}
+      version: ${{ github.env.dbi_release }}
