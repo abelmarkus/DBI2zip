@@ -23,7 +23,6 @@ jobs:
           fi
 
   call-release-workflow:
-    runs-on: ubuntu-latest
     needs: check-new-release
     if: needs.check-new-release.outputs.update == 'true'
     uses: ./.github/workflows/release-package.yml
