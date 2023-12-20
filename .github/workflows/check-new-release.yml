@@ -1,4 +1,4 @@
-name: Update release file
+name: Check new release
 
 on:
   schedule:
@@ -28,6 +28,6 @@ jobs:
 
       - name: Call release workflow
         if: steps.check_tag_name.outputs.update == 'true'
-        uses: ./github/workflow/update_release_file.yml
+        uses: ./.github/workflows/release-package.yml
         with:
           version: ${{ steps.get_tag_name.outputs.dbi_release }}
