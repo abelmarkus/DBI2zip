@@ -16,14 +16,16 @@ jobs:
         id: get_tag_name
         run: |
           DBI_RELEASE=$(curl -s https://api.github.com/repos/rashevskyv/dbi/releases/latest | jq -r '.tag_name')
+          echo "DBI_RELEASE=$DBI_RELEASE"
           DBIZIP_RELEASE=$(curl -s https://api.github.com/repos/abelmarkus/dbi2zip/releases/latest | jq -r '.tag_name')
+          echo "DBIZIP_RELEASE=$DBIZIP_RELEASE"
+
           echo "update=false" >> $GITHUB_OUTPUT
           if [ $DBI_RELEASE -gt $DBIZIP_RELEASE ]; then
             echo "update=true" >> $GITHUB_OUTPUT
             echo "update=true"
             echo "version=$DBI_RELEASE" >> $GITHUB_OUTPUT
           fi
-          echo "version=$DBI_RELEASE"
       
       - name: Dispatch a new release creation
         if: ${{ steps.get_tag_name.outputs.update == 'true' }}
