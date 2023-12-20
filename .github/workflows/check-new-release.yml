@@ -24,7 +24,7 @@ jobs:
 
   call-release-workflow:
     needs: check-new-release
-    if: env.update == 'true'
+    if: github.env.update == 'true'
     uses: ./.github/workflows/release-package.yml
     with:
       version: ${{ env.dbi_release }}
