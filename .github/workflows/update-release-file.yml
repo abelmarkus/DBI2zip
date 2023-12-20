@@ -34,7 +34,7 @@ jobs:
           git push origin HEAD:release-branch
 
       - name: Create pull request
-        if: steps.check_release_id.outputs.update == 'true'
+        if: steps.check_tag_name.outputs.update == 'true'
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
