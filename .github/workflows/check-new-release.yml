@@ -23,6 +23,7 @@ jobs:
           fi
 
   call-release-workflow:
+    needs: check-new-release
     if: env.update == 'true'
     uses: ./.github/workflows/release-package.yml
     with:
