@@ -6,3 +6,7 @@ Now you can add https://github.com/abelmarkus/DBI2zip/releases/latest/download/D
 (I created a new 'custom download' into AIO Switch Updater and it works like a charm!)
 
 And That's It!
+
+### Credits
+
+* [__rashevskyv__](https://github.com/rashevskyv) for the wonderful [__DBI__](https://github.com/rashevskyv/DBI)
