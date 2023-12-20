@@ -1,40 +1,22 @@
 name: Create DBI Release
 
 on:
-  schedule:
-    - cron: '0 7 * * 1'
-  workflow_dispatch: 
-
-#  workflow_call: 
-#    inputs:
-#      version:
-#        type: string
-#        required: true
+  workflow_call: 
+    inputs:
+      version:
+        type: string
+        required: true
 
 jobs:
-  check-new-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Get latest DBI release (tag name)
-        id: get_tag_name
-        run: |
-          DBI_RELEASE=$(curl -s https://api.github.com/repos/rashevskyv/dbi/releases/latest | jq -r '.tag_name')
-          DBIZIP_RELEASE=$(curl -s https://api.github.com/repos/abelmarkus/dbi2zip/releases/latest | jq -r '.tag_name')
-          echo "update=false" >> $GITHUB_OUTPUT
-          if [ $DBI_RELEASE -gt $DBIZIP_RELEASE ]; then
-            echo "update=true" >> $GITHUB_OUTPUT
-            echo "version=$DBI_RELEASE" >> $GITHUB_ENV
-          fi
-          echo "dbi_release=$DBI_RELEASE"
-
   create-new-release:
-    needs: check-new-release
-    if: ${{ needs.check-new-release.outputs.update == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Print inpu version
+        run: echo "VERSION=${{ inputs.version }}"
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Download files
         run: |
           curl -LJO https://github.com/rashevskyv/dbi/releases/latest/download/DBI.nro
@@ -52,8 +34,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.version }}
-          release_name: Release ${{ env.version }}
+          tag_name: ${{ inputs.version }}
+          release_name: Release ${{ inputs.version }}
           body: |
             New release of DBI zip.
           draft: false
