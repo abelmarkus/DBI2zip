@@ -22,12 +22,12 @@ jobs:
         id: check_tag_name
         run: |
           DBIZIP_RELEASE=$(curl -s https://api.github.com/repos/abelmarkus/dbi2zip/releases/latest | jq -r '.tag_name')
-          if ! diff $DBI_RELEASE $DBIZIP_RELEASE; then
+          if $DBI_RELEASE > $DBIZIP_RELEASE; then
             echo "update=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Call release workflow
         if: steps.check_tag_name.outputs.update == 'true'
-        uses: ./github/workflow/update_release_file
+        uses: ./github/workflow/update_release_file.yml
         with:
           version: ${{ steps.get_tag_name.outputs.dbi_release }}
