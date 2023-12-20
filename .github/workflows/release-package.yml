@@ -11,9 +11,6 @@ jobs:
   create-new-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Print inpu version
-        run: echo "VERSION=${{ inputs.version }}"
-
       - name: Checkout code
         uses: actions/checkout@v4
         
