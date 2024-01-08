@@ -34,7 +34,7 @@ jobs:
           tag_name: ${{ inputs.version }}
           release_name: Release ${{ inputs.version }}
           body: |
-            New release of DBI zip.
+            Latest release of DBI zip.
           draft: false
           prerelease: false
       - name: Upload release asset
