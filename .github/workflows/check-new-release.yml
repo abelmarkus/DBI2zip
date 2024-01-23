@@ -3,6 +3,7 @@ name: Check new release
 on:
   schedule:
     - cron: '0 7 * * 1'
+  workflow_dispatch:
 
 jobs:
   check-new-release:
