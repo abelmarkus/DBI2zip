@@ -3,6 +3,7 @@ name: Check new release
 on:
   schedule:
     - cron: '0 6 * * 1'
+  workflow_dispatch:
 
 jobs:
   check-new-release:
@@ -28,7 +29,7 @@ jobs:
       
       - name: Dispatch a new release creation
         if: ${{ steps.get_tag_name.outputs.update == 'true' }}
-        uses: benc-uk/workflow-dispatch@v1
+        uses: benc-uk/workflow-dispatch@v1.2.2
         with:
           workflow: release-package.yml
           inputs: '{
