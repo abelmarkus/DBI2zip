@@ -15,9 +15,11 @@ jobs:
       - name: Get latest DBI release (tag name)
         id: get_tag_name
         run: |
-          DBI_RELEASE=$(curl -s https://api.github.com/repos/rashevskyv/dbi/releases/latest | jq -r '.tag_name')
+          # DBI_RELEASE=$(curl -s https://api.github.com/repos/rashevskyv/dbi/releases/latest | jq -r '.tag_name')
+          DBI_RELEASE=$(gh api repos/rashevskyv/dbi/releases/latest --jq '.tag_name')
           echo "DBI_RELEASE=$DBI_RELEASE"
-          DBIZIP_RELEASE=$(curl -s https://api.github.com/repos/abelmarkus/dbi2zip/releases/latest | jq -r '.tag_name')
+          # DBIZIP_RELEASE=$(curl -s https://api.github.com/repos/abelmarkus/dbi2zip/releases/latest | jq -r '.tag_name')
+          DBIZIP_RELEASE=$(gh api repos/abelmarkus/dbi2zip/releases/latest --jq '.tag_name')
           echo "DBIZIP_RELEASE=$DBIZIP_RELEASE"
 
           echo "update=false" >> $GITHUB_OUTPUT
@@ -29,9 +31,13 @@ jobs:
       
       - name: Dispatch a new release creation
         if: ${{ steps.get_tag_name.outputs.update == 'true' }}
-        uses: benc-uk/workflow-dispatch@v1.2.3
-        with:
-          workflow: release-package.yml
-          inputs: '{
-              "version": "${{ steps.get_tag_name.outputs.version }}"
-            }'
+      #   uses: benc-uk/workflow-dispatch@v1.2.3
+      #   with:
+      #     workflow: release-package.yml
+      #     inputs: '{
+      #         "version": "${{ steps.get_tag_name.outputs.version }}"
+      #       }'
+        run: |
+          gh workflow run release-package.yml -f version="${{ steps.get_tag_name.outputs.version }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
