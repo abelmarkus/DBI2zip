@@ -33,12 +33,6 @@ jobs:
       
       - name: Dispatch a new release creation
         if: ${{ steps.get_tag_name.outputs.update == 'true' }}
-      #   uses: benc-uk/workflow-dispatch@v1.2.3
-      #   with:
-      #     workflow: release-package.yml
-      #     inputs: '{
-      #         "version": "${{ steps.get_tag_name.outputs.version }}"
-      #       }'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
