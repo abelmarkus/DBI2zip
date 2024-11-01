@@ -19,7 +19,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release download latest -R rashevskyv/dbi -p 'DBI.nro' -p 'dbi.config'
+          gh release download -R rashevskyv/dbi -p 'DBI.nro' -p 'dbi.config'
           
       - name: Archive files
         run: |
