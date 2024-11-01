@@ -35,4 +35,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh workflow run release-package.yml -f version="${{ steps.get_tag_name.outputs.version }}"
+          gh workflow run release-package.yml \
+          -f version="${{ steps.get_tag_name.outputs.version }}" \
+          --ref $GITHUB_REF_NAME
