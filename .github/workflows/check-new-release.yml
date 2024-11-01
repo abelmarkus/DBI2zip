@@ -25,10 +25,9 @@ jobs:
           echo "DBIZIP_RELEASE=$DBIZIP_RELEASE"
 
           echo "update=false" >> $GITHUB_OUTPUT
-          if [ $DBI_RELEASE -gt $DBIZIP_RELEASE ]; then
-            echo "update=true" >> $GITHUB_OUTPUT
-            echo "update=true"
-            echo "version=$DBI_RELEASE" >> $GITHUB_OUTPUT
+          if [[ $DBI_RELEASE > $DBIZIP_RELEASE ]]; then
+            echo "update=true" | tee -a $GITHUB_OUTPUT
+            echo "version=$DBI_RELEASE" | tee -a $GITHUB_OUTPUT
           fi
       
       - name: Dispatch a new release creation
