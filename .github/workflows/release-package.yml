@@ -34,10 +34,3 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ inputs.version }} ./DBI.zip --notes "Latest release of DBI zip."
-
-      - name: Upload release asset
-        id: upload-release-asset
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release upload ${{ inputs.version }} ./DBI.zip
