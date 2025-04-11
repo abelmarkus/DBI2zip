@@ -19,13 +19,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release download -R rashevskyv/dbi -p 'DBI.nro' -p 'dbi.config'
+          gh release download -R rashevskyv/dbi -p 'DBI.nro' -p 'dbi.config' -p 'dbi.locations'
           
       - name: Archive files
         run: |
           mkdir -p switch/DBI
           mv DBI.nro switch/DBI/
           mv dbi.config switch/DBI/
+          mv dbi.locations switch/DBI/
           zip -r DBI.zip switch/
           
       - name: Create release
