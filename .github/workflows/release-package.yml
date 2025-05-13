@@ -24,9 +24,9 @@ jobs:
       - name: Archive files
         run: |
           mkdir -p switch/DBI
-          mv DBI.nro switch/DBI/
-          mv dbi.config switch/DBI/
-          mv dbi.locations switch/DBI/
+          if [ -f "DBI.nro" ]; then mv DBI.nro switch/DBI/; else echo "DBI.nro not found"; fi
+          if [ -f "dbi.config" ]; then mv dbi.config switch/DBI/; else echo "dbi.config not found"; fi
+          if [ -f "dbi.locations" ]; then mv dbi.locations switch/DBI/; else echo "dbi.locations not found"; fi
           zip -r DBI.zip switch/
           
       - name: Create release
