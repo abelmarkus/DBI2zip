@@ -35,4 +35,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ inputs.version }} ./DBI.zip ./DBI_NO_CONFIG.zip --notes "Latest release of DBI zip."          gh release create ${{ inputs.version }} ./DBI.zip --notes "Latest release of DBI zip."
+          gh release create ${{ inputs.version }} ./DBI.zip ./DBI_NO_CONFIG.zip --notes "Latest release of DBI zip."
